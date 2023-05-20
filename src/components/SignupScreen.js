@@ -30,8 +30,25 @@ function SignupScreen() {
       return;
     }
 
-    // Perform signup logic here with the name, email, and password values
-    // For example, you can make an API request to your backend
+    // Make an API request to your backend for signup
+    fetch("https://r77cn3-5000.csb.app/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, email, password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the backend
+        // For example, you can show a success message and navigate to another page
+        alert(data.message);
+        navigate("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("An error occurred during signup.");
+      });
 
     // Clear the form fields
     setName("");
@@ -65,7 +82,7 @@ function SignupScreen() {
         <button type="submit">Sign Up</button>
       </form>
       <p>
-        have an account? <Link to="/login">log in</Link>
+        Already have an account? <Link to="/login">Log in</Link>
       </p>
     </div>
   );
